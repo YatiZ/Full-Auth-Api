@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "djoser"
+    "djoser",
+
+    "users"
 ]
 
 MIDDLEWARE = [
@@ -154,3 +156,6 @@ DJOSER = {
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+#must add this to connect with UserAccount in models
+AUTH_USER_MODEL = 'users.UserAccount'
