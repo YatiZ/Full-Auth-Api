@@ -22,10 +22,6 @@ if path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 #modifying from digital ocean 
 SECRET_KEY = getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 
@@ -47,6 +43,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "djoser",
+    "corsheaders",
+
 
     "users"
 ]
@@ -54,6 +52,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -92,7 +91,17 @@ DATABASES = {
     }
 }
 
+#after installing django-ses
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' 
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = 'f2cc26367fe002'
+EMAIL_HOST_PASSWORD = 'ecd3757fe10e97'
+EMAIL_PORT = '2525'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 
+DOMAIN = getenv('DOMAIN')
+SITE_NAME = 'Full Auth'
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -151,6 +160,8 @@ DJOSER = {
   'PASSWORD_RESET_CONFIRM_RETYPE': True,
   'TOKEN_MODEL': None
 }
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
